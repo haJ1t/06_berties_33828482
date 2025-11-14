@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results - Bertie's Books</title>
+</head>
+<body>
+    <h1>🔍 Search Results for: "<%= keyword %>"</h1>
+    
+    <% if (availableBooks.length > 0) { %>
+        <p><strong>Found <%= availableBooks.length %> book(s)</strong></p>
+        <table border="1" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Book Name</th>
+                    <th>Price (£)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% availableBooks.forEach(function(book) { %>
+                    <tr>
+                        <td><%= book.id %></td>
+                        <td><%= book.name %></td>
+                        <td>£<%= book.price %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <p>❌ No books found matching "<%= keyword %>"</p>
+        <p>Try searching with different keywords.</p>
+    <% } %>
+    
+    <br>
+    <a href="/books/search">Search again</a> | 
+    <a href="/books/list">View all books</a> | 
+    <a href="/">Home</a>
+</body>
+</html>

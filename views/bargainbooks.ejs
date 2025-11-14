@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bargain Books - Bertie's Books</title>
+</head>
+<body>
+    <h1>💰 Bargain Books (Under £20)</h1>
+    
+    <% if (availableBooks.length > 0) { %>
+        <table border="1" cellpadding="10">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Book Name</th>
+                    <th>Price (£)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% availableBooks.forEach(function(book) { %>
+                    <tr>
+                        <td><%= book.id %></td>
+                        <td><%= book.name %></td>
+                        <td>£<%= book.price %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        <p><strong>Total bargain books found: <%= availableBooks.length %></strong></p>
+    <% } else { %>
+        <p>No bargain books available at the moment.</p>
+    <% } %>
+    
+    <br>
+    <a href="/books/list">View all books</a> | 
+    <a href="/">Home</a>
+</body>
+</html>
