@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Page title displayed in browser tab -->
     <title>Bargain Books - Bertie's Books</title>
 </head>
 <body>
+    <!-- Main heading for bargain books page -->
     <h1>💰 Bargain Books (Under £20)</h1>
     
+    <!-- Check if there are any bargain books available -->
     <% if (availableBooks.length > 0) { %>
+        <!-- Create a table to display bargain books -->
         <table border="1" cellpadding="10">
+            <!-- Table header row -->
             <thead>
                 <tr>
                     <th>ID</th>
@@ -15,22 +20,34 @@
                     <th>Price (£)</th>
                 </tr>
             </thead>
+            <!-- Table body containing book data -->
             <tbody>
+                <!-- Loop through each book in availableBooks array -->
                 <% availableBooks.forEach(function(book) { %>
+                    <!-- Display each book as a table row -->
                     <tr>
+                        <!-- Display book ID -->
                         <td><%= book.id %></td>
+                        <!-- Display book name -->
                         <td><%= book.name %></td>
+                        <!-- Display book price with pound symbol -->
                         <td>£<%= book.price %></td>
                     </tr>
+                <!-- End of forEach loop -->
                 <% }); %>
             </tbody>
         </table>
+        <!-- Display total count of bargain books found -->
         <p><strong>Total bargain books found: <%= availableBooks.length %></strong></p>
+    <!-- If no books available, show message -->
     <% } else { %>
+        <!-- Message when no bargain books exist -->
         <p>No bargain books available at the moment.</p>
+    <!-- End of if statement -->
     <% } %>
     
     <br>
+    <!-- Navigation links to other pages -->
     <a href="/books/list">View all books</a> | 
     <a href="/">Home</a>
 </body>

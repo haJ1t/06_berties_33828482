@@ -1,39 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Page title displayed in browser tab -->
     <title>Search Results - Bertie's Books</title>
 </head>
 <body>
+    <!-- Main heading displaying the search keyword dynamically -->
     <h1>🔍 Search Results for: "<%= keyword %>"</h1>
     
+    <!-- Check if any books were found -->
     <% if (availableBooks.length > 0) { %>
+        <!-- Display the number of books found -->
         <p><strong>Found <%= availableBooks.length %> book(s)</strong></p>
+        <!-- Create table to display search results -->
         <table border="1" cellpadding="10">
+            <!-- Table header row -->
             <thead>
                 <tr>
+                    <!-- Column header for book ID -->
                     <th>ID</th>
+                    <!-- Column header for book name -->
                     <th>Book Name</th>
+                    <!-- Column header for book price -->
                     <th>Price (£)</th>
                 </tr>
             </thead>
+            <!-- Table body containing book data -->
             <tbody>
+                <!-- Loop through each book in the search results -->
                 <% availableBooks.forEach(function(book) { %>
+                    <!-- Create a row for each book -->
                     <tr>
+                        <!-- Display book ID -->
                         <td><%= book.id %></td>
+                        <!-- Display book name -->
                         <td><%= book.name %></td>
+                        <!-- Display book price with pound symbol -->
                         <td>£<%= book.price %></td>
                     </tr>
+                <!-- End of forEach loop -->
                 <% }); %>
             </tbody>
         </table>
+    <!-- If no books were found, display error message -->
     <% } else { %>
+        <!-- Display no results message with the search keyword -->
         <p>❌ No books found matching "<%= keyword %>"</p>
+        <!-- Suggest trying different keywords -->
         <p>Try searching with different keywords.</p>
+    <!-- End of if-else statement -->
     <% } %>
     
+    <!-- Add spacing -->
     <br>
+    <!-- Link to search again -->
     <a href="/books/search">Search again</a> | 
+    <!-- Link to view all books -->
     <a href="/books/list">View all books</a> | 
+    <!-- Link to home page -->
     <a href="/">Home</a>
 </body>
 </html>

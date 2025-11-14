@@ -1,15 +1,23 @@
 <!doctype html>
 <html>
   <head>
+    <!-- Page title with dynamic shop name from shopData object -->
     <title>Register for <%=shopData.shopName%></title>
+    <!-- Link to external CSS stylesheet -->
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
   <body>
+    <!-- Main heading displaying shop name dynamically -->
     <h1>Register for <%=shopData.shopName%></h1>
+    <!-- Registration form that posts data to /registered route -->
     <form method="POST" action="registered">
+        <!-- Input field for user's first name -->
         <p>First name: <input id="first" type="text" name="first" /></p>
+        <!-- Input field for user's last name -->
         <p>Last name: <input id="last" type="text" name="last" /></p>
+        <!-- Input field for user's email with email validation -->
         <p>Email: <input id="email" type="email" name="email" /></p>
+        <!-- Submit button to send form data -->
         <input type="submit" value="Register" />
       </form>
   </body>

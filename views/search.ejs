@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Page title displayed in browser tab -->
     <title>Search Books - Berties Books</title>
     <style>
+        /* Center the page content and set basic styling */
         body {
             font-family: Arial, sans-serif;
             max-width: 600px;
@@ -10,16 +12,19 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
+        /* Style the main heading */
         h1 {
             color: #2c3e50;
             text-align: center;
         }
+        /* Style the search container as a white card with shadow */
         .search-container {
             background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
+        /* Style the search input field */
         input[type="text"] {
             width: 70%;
             padding: 12px;
@@ -27,6 +32,7 @@
             border: 2px solid #ddd;
             border-radius: 5px;
         }
+        /* Style the submit button */
         input[type="submit"] {
             padding: 12px 25px;
             background: #3498db;
@@ -36,9 +42,11 @@
             font-size: 16px;
             border-radius: 5px;
         }
+        /* Add hover effect to submit button */
         input[type="submit"]:hover {
             background: #2980b9;
         }
+        /* Style the back to home link as a button */
         .back-link {
             display: inline-block;
             margin-top: 20px;
@@ -51,15 +59,21 @@
     </style>
 </head>
 <body>
+    <!-- Main heading with search icon -->
     <h1>🔍 Search for Books</h1>
     
+    <!-- Container for the search form -->
     <div class="search-container">
+        <!-- Search form that sends GET request to /books/search-result -->
         <form method="GET" action="/books/search-result">
+            <!-- Text input for search keyword with placeholder and required validation -->
             <input type="text" name="keyword" placeholder="Enter book name or keyword..." required>
+            <!-- Submit button to perform the search -->
             <input type="submit" value="Search">
         </form>
     </div>
     
+    <!-- Link to navigate back to home page -->
     <a href="/" class="back-link">← Back to Home</a>
 </body>
 </html>

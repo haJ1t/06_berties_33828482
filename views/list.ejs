@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Page title displayed in browser tab -->
     <title>Book List - Berties Books</title>
     <style>
+        /* Center the page content and set basic styling */
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -10,19 +12,23 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
+        /* Style the main heading */
         h1 {
             color: #2c3e50;
             text-align: center;
         }
+        /* Style the section heading with bottom border */
         h2 {
             color: #34495e;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
         }
+        /* Remove default list styling */
         ul {
             list-style-type: none;
             padding: 0;
         }
+        /* Style each book item as a white card with shadow */
         li {
             background: white;
             margin: 10px 0;
@@ -33,15 +39,18 @@
             justify-content: space-between;
             align-items: center;
         }
+        /* Style the book name text */
         .book-name {
             font-size: 18px;
             color: #2c3e50;
         }
+        /* Style the price in green and bold */
         .price {
             color: #27ae60;
             font-weight: bold;
             font-size: 20px;
         }
+        /* Style the back to home link as a button */
         .back-link {
             display: inline-block;
             margin-top: 20px;
@@ -51,28 +60,42 @@
             text-decoration: none;
             border-radius: 5px;
         }
+        /* Add hover effect to back link */
         .back-link:hover {
             background: #2980b9;
         }
     </style>
 </head>
 <body>
+    <!-- Main heading for the bookshop -->
     <h1>Berties Book Shop</h1>
+    <!-- Section heading for available books -->
     <h2>Available Books</h2>
     
+    <!-- Check if there are no books available -->
     <% if (availableBooks.length === 0) { %>
+        <!-- Display message when no books exist -->
         <p>No books available at the moment.</p>
+    <!-- If books are available, display them -->
     <% } else { %>
+        <!-- Create unordered list for books -->
         <ul>
+        <!-- Loop through each book in availableBooks array -->
         <% availableBooks.forEach(function(book) { %>
+            <!-- Display each book as a list item -->
             <li>
+                <!-- Display book name on the left -->
                 <span class="book-name"><%= book.name %></span>
+                <!-- Display book price on the right -->
                 <span class="price">£<%= book.price %></span>
             </li>
+        <!-- End of forEach loop -->
         <% }); %>
         </ul>
+    <!-- End of if-else statement -->
     <% } %>
     
+    <!-- Link to navigate back to home page -->
     <a href="/" class="back-link">← Back to Home</a>
 </body>
 </html>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Page title displayed in browser tab -->
     <title>Berties Books - Home</title>
     <style>
+        /* Center the page content and set basic styling */
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -11,23 +13,28 @@
             text-align: center;
             background-color: #f5f5f5;
         }
+        /* Style the main heading */
         h1 {
             color: #2c3e50;
             font-size: 48px;
             margin-bottom: 10px;
         }
+        /* Style the subtitle text */
         .subtitle {
             color: #7f8c8d;
             font-size: 20px;
             margin-bottom: 40px;
         }
+        /* Remove default list styling from menu */
         .menu {
             list-style: none;
             padding: 0;
         }
+        /* Add spacing between menu items */
         .menu li {
             margin: 15px 0;
         }
+        /* Style menu links as blue buttons */
         .menu a {
             display: inline-block;
             padding: 15px 40px;
@@ -39,27 +46,37 @@
             transition: all 0.3s;
             min-width: 250px;
         }
+        /* Add hover effect to menu links */
         .menu a:hover {
             background: #2980b9;
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
+        /* Style secondary menu links with gray color */
         .menu a.secondary {
             background: #95a5a6;
         }
+        /* Add hover effect to secondary links */
         .menu a.secondary:hover {
             background: #7f8c8d;
         }
     </style>
 </head>
 <body>
+    <!-- Main heading with book emoji -->
     <h1>📚 Berties Books</h1>
+    <!-- Subtitle describing the website -->
     <p class="subtitle">Your Friendly Online Bookshop</p>
     
+    <!-- Navigation menu list -->
     <ul class="menu">
+        <!-- Link to view all books page -->
         <li><a href="/books/list">📖 View All Books</a></li>
+        <!-- Link to add new book page -->
         <li><a href="/books/addbook">➕ Add a New Book</a></li>
+        <!-- Link to search books page -->
         <li><a href="/books/search">🔍 Search Books</a></li>
+        <!-- Link to about page with secondary styling -->
         <li><a href="/about" class="secondary">ℹ️ About Us</a></li>
     </ul>
 </body>
