@@ -1,83 +1,178 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <!-- Page title displayed in browser tab -->
+    <meta charset="UTF-8">
     <title>Berties Books - Home</title>
+
     <style>
-        /* Center the page content and set basic styling */
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            text-align: center;
-            background-color: #f5f5f5;
+        /* GLOBAL RESET */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        /* Style the main heading */
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            background: radial-gradient(circle at top, #a8e6ff, #2c3e50 80%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+        }
+
+        /* FLOATING PARTICLES */
+        .particle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+            filter: blur(2px);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(-40px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 0.4; }
+        }
+
+        /* MAIN GLASS CARD */
+        .container {
+            width: 650px;
+            padding: 45px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(18px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.35);
+            text-align: center;
+            animation: fadeIn 1.3s ease forwards;
+            transform: translateY(40px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         h1 {
-            color: #2c3e50;
-            font-size: 48px;
+            font-size: 55px;
+            font-weight: 700;
+            text-shadow: 0 10px 18px rgba(0,0,0,0.4);
             margin-bottom: 10px;
         }
-        /* Style the subtitle text */
+
         .subtitle {
-            color: #7f8c8d;
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 40px;
+            opacity: 0.85;
+            animation: fadeIn 1.8s ease forwards;
         }
-        /* Remove default list styling from menu */
+
+        /* MENU */
         .menu {
             list-style: none;
-            padding: 0;
         }
-        /* Add spacing between menu items */
+
         .menu li {
-            margin: 15px 0;
+            margin: 18px 0;
         }
-        /* Style menu links as blue buttons */
+
+        /* BUTTONS */
         .menu a {
-            display: inline-block;
-            padding: 15px 40px;
-            background: #3498db;
-            color: white;
+            display: block;
+            padding: 18px 45px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 18px;
-            transition: all 0.3s;
-            min-width: 250px;
+            border-radius: 14px;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(6px);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
         }
-        /* Add hover effect to menu links */
+
+        /* HOVER ANIMATION — 3D POP + NEON GLOW */
         .menu a:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: translateY(-6px) scale(1.03);
+            background: rgba(255,255,255,0.35);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.37), 0 0 18px #42c3ff;
         }
-        /* Style secondary menu links with gray color */
+
+        /* RIPPLE EFFECT */
+        .menu a::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255,255,255,0.9);
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1);
+            border-radius: 50%;
+            transition: 0.6s;
+        }
+
+        .menu a:hover::after {
+            opacity: 0.15;
+            transform: translate(-50%, -50%) scale(40);
+        }
+
+        /* SECONDARY BUTTON */
         .menu a.secondary {
-            background: #95a5a6;
+            background: rgba(255,255,255,0.12);
         }
-        /* Add hover effect to secondary links */
+
         .menu a.secondary:hover {
-            background: #7f8c8d;
+            box-shadow: 0 18px 35px rgba(0,0,0,0.37), 0 0 18px #cccccc;
         }
+
     </style>
 </head>
+
 <body>
-    <!-- Main heading with book emoji -->
-    <h1>📚 Berties Books</h1>
-    <!-- Subtitle describing the website -->
-    <p class="subtitle">Your Friendly Online Bookshop</p>
-    
-    <!-- Navigation menu list -->
-    <ul class="menu">
-        <!-- Link to view all books page -->
-        <li><a href="/books/list">📖 View All Books</a></li>
-        <!-- Link to add new book page -->
-        <li><a href="/books/addbook">➕ Add a New Book</a></li>
-        <!-- Link to search books page -->
-        <li><a href="/books/search">🔍 Search Books</a></li>
-        <!-- Link to about page with secondary styling -->
-        <li><a href="/about" class="secondary">ℹ️ About Us</a></li>
-    </ul>
+
+    <!-- FLOATING PARTICLES -->
+    <script>
+        for (let i = 0; i < 25; i++) {
+            let p = document.createElement("div");
+            p.className = "particle";
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.top = Math.random() * 100 + "vh";
+            p.style.animationDelay = Math.random() * 4 + "s";
+            p.style.transform = "scale(" + (Math.random() * 1.5 + 0.5) + ")";
+            document.body.appendChild(p);
+        }
+    </script>
+
+    <div class="container">
+        <h1>📚 Bertie’s Books</h1>
+        <p class="subtitle">Your Friendly Online Bookstore</p>
+
+        <ul class="menu">
+            <li><a href="/books/list">📖 View All Books</a></li>
+            <li><a href="/books/addbook">➕ Add a New Book</a></li>
+            <li><a href="/books/search">🔍 Search Books</a></li>
+
+            <li><a href="/users/register">📝 Register</a></li>
+            <li><a href="/users/login">🔐 Login</a></li>
+            <li><a href="/users/list">👥 View Users</a></li>
+            <li><a href="/users/audit">📊 Audit Log</a></li>
+            <li><a href="/books/bargainbooks">💸 Bargain Books</a></li>
+
+            <li><a href="/about" class="secondary">ℹ️ About Us</a></li>
+        </ul>
+    </div>
+
 </body>
 </html>

@@ -1,38 +1,133 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <!-- Page title displayed in browser tab -->
     <title>About - Bertie's Books</title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .container {
+            background: white;
+            width: 70%;
+            max-width: 900px;
+            padding: 40px;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: slideUp 0.7s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        h1 {
+            font-size: 42px;
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #e67e22;
+            font-size: 26px;
+        }
+
+        ul {
+            font-size: 18px;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .nav-links {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .nav-links a {
+            display: inline-block;
+            margin: 8px;
+            padding: 12px 25px;
+            background: #3498db;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+    </style>
 </head>
+
 <body>
-    <!-- Main heading for the about page -->
-    <h1>📖 About Bertie's Books</h1>
-    
-    <!-- Welcome message -->
-    <p>Welcome to <strong>Bertie's Books</strong>!</p>
-    
-    <!-- Brief description of the bookstore -->
-    <p>We are an online bookstore dedicated to providing quality books at affordable prices.</p>
-    
-    <!-- Section heading for services offered -->
-    <h2>What We Offer:</h2>
-    <!-- List of features and services -->
+
+<div class="container">
+
+    <h1>📚 About Bertie's Books</h1>
+
+    <p>
+        Welcome to <strong>Bertie's Books</strong> — your friendly online bookstore!
+        We are passionate about books and committed to making reading enjoyable,
+        accessible, and affordable for everyone.
+    </p>
+
+    <h2>✨ What We Offer</h2>
+
     <ul>
-        <li>Wide selection of books across all genres</li>
-        <li>Easy search functionality</li>
-        <li>Simple and user-friendly interface</li>
-        <li>Regular updates to our collection</li>
+        <li>Huge selection of books across all genres</li>
+        <li>Powerful search and filtering tools</li>
+        <li>Fast and clean user interface</li>
+        <li>Special sections like Bargain Books</li>
+        <li>Secure user login with hashed passwords</li>
     </ul>
-    
-    <!-- Section heading for company mission -->
-    <h2>Our Mission:</h2>
-    <!-- Mission statement description -->
-    <p>To make reading accessible and enjoyable for everyone by offering a diverse collection of books and a seamless browsing experience.</p>
-    
-    <br>
-    <!-- Navigation links to other pages -->
-    <a href="/">Home</a> | 
-    <a href="/books/list">View all books</a> | 
-    <a href="/books/search">Search books</a>
+
+    <h2>🎯 Our Mission</h2>
+
+    <p>
+        Our mission is simple:  
+        <strong>Make it easier for people to discover, enjoy, and fall in love with books.</strong>  
+        Whether you're a casual reader or a lifelong bookworm, we’re here to support your journey.
+    </p>
+
+    <div class="nav-links">
+        <a href="/">🏠 Home</a>
+        <a href="/books/list">📖 View Books</a>
+        <a href="/books/search">🔍 Search Books</a>
+        <a href="/users/register">📝 Register</a>
+    </div>
+
+</div>
+
 </body>
 </html>

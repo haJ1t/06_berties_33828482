@@ -1,166 +1,203 @@
-# 📚 Bertie's Books - Online Bookstore Web Application
+# 📚 Bertie's Books - Full Stack Bookstore Web Application
 
-A Node.js web application for managing and browsing an online bookstore, built with Express.js, MySQL, and EJS templating.
-
----
-
-## 🎯 Project Overview
-
-**Bertie's Books** is a full-stack web application that allows users to:
-- Browse a collection of books
-- Search for books by title (with advanced partial matching)
-- Add new books to the database
-- View bargain books priced under £20
-- Update and delete book records
-
-This project was developed as part of the **Web Development** module coursework.
+A complete Node.js + Express + MySQL web application developed for the Web Development coursework.  
+The system implements full CRUD book management, a secure user registration & login system, audit logging, environment variable protection, and deployment using Forever.
 
 ---
 
-## 🛠️ Technologies Used
-
-- **Backend:** Node.js, Express.js
-- **Database:** MySQL
-- **Templating Engine:** EJS (Embedded JavaScript)
-- **Process Manager:** Forever (for deployment)
-- **Version Control:** Git & GitHub
+# ✅ Table of Contents
+1. [Project Overview](#project-overview)  
+2. [Features](#features)  
+3. [Technology Stack](#technology-stack)  
+4. [Project Structure](#project-structure)  
+5. [Installation & Setup](#installation--setup)  
+6. [Database Setup](#database-setup)  
+7. [User Authentication System](#user-authentication-system)  
+8. [Audit Logging](#audit-logging)  
+9. [Security with dotenv](#security-with-dotenv)  
+10. [Default Login User (for marking)](#default-login-user-for-marking)  
+11. [Deployment](#deployment)  
+12. [Testing](#testing)  
 
 ---
 
-## 📂 Project Structure
+# 🎯 Project Overview
+**Bertie’s Books** is an online bookstore where users can:
 
-06_berties_12345678/
-│
-├── index.js                 # Main application entry point
-├── package.json             # Project dependencies
-├── links.txt                # Deployment URL
+- Browse books  
+- Add new books  
+- Search books (exact + partial match)  
+- View bargain books (< £20)  
+- Register an account  
+- Log in securely using hashed passwords (bcrypt)  
+- View login history in the Audit Log  
+- Authenticate using a default user created for assessment  
+
+This is the fully extended version of the coursework, implementing all tasks from A to D.
+
+---
+
+# ✨ Features
+
+### 📘 **Books**
+- List all books  
+- Add books  
+- Search books (SQL LIKE)  
+- Bargain books page  
+- Fully styled EJS views  
+
+### 👤 **User System**
+- User registration with hashed passwords  
+- Secure login  
+- Prevents login with incorrect credentials  
+- Login success/fail audit logging  
+
+### 📊 **Audit System**
+- Stores every login attempt  
+- Shows: username, status, timestamp  
+- Accessible at  /users/audit
+
+### 🔐 **Security Enhancements**
+- MySQL credentials stored in `.env` file  
+- Not included in GitHub (added to .gitignore)  
+- Uses bcrypt with salt for password hashing  
+
+### 🧪 **Includes Default Assessor Account**
+Created automatically using `insert_test_data.sql`:username: gold
+password: smiths
+---
+
+# 🛠️ Technology Stack
+
+| Component | Technology |
+|----------|------------|
+| Backend | Node.js (Express.js) |
+| Frontend | EJS templates, CSS |
+| Database | MySQL (mysql2 driver) |
+| Security | bcrypt, dotenv |
+| Deployment | Forever on Ubuntu VM |
+| Version Control | Git + GitHub |
+
+---
+
+# 📂 Project Structure
+project/
+│── index.js
+│── db.js
+│── package.json
+│── .env
+│── insert_test_data.sql
 │
 ├── routes/
-│   ├── main.js              # Main routes (home, about)
-│   └── books.js             # Book-related routes
+│   ├── main.js
+│   ├── books.js
+│   └── users.js
 │
 ├── views/
-│   ├── index.ejs            # Homepage
-│   ├── about.ejs            # About page
-│   ├── list.ejs             # List all books
-│   ├── addbook.ejs          # Add new book form
-│   ├── bookadded.ejs        # Book added confirmation
-│   ├── search.ejs           # Search form
-│   ├── searchresult.ejs     # Search results
-│   └── bargainbooks.ejs     # Bargain books page
+│   ├── index.ejs
+│   ├── about.ejs
+│   ├── login.ejs
+│   ├── register.ejs
+│   ├── audit.ejs
+│   ├── listusers.ejs
+│   ├── addbook.ejs
+│   ├── list.ejs
+│   ├── search.ejs
+│   └── searchresult.ejs
 │
-└── create_db.sql            # Database schema
-
-Copy
-
+└── public/
+└── main.css
 ---
 
-## 🚀 Installation & Setup
+# 🚀 Installation & Setup
 
-### Prerequisites
-
-- Node.js (v14 or higher)
-- MySQL Server
-- npm (Node Package Manager)
-
-### Step 1: Clone the Repository
-
+## 1. Install dependencies
 ```bash
-git clone https://github.com/yourusername/06_berties_12345678.git
-cd 06_berties_12345678
-Step 2: Install Dependencies
-Copy
 npm install
-Step 3: Set Up the Database
-Start MySQL server
-Create the database and table:
-Copy
-mysql -u root -p < create_db.sql
-Or manually:
+2. Create .env file
+DB_HOST=localhost
+DB_USER=berties_books_app
+DB_PASSWORD=qwertyuiop
+DB_NAME=berties_books
 
-Copy
-CREATE DATABASE berties_books;
-USE berties_books;
+3. Run the SQL setup
+mysql -u root -p < create_tables.sql
+mysql -u root -p < insert_test_data.sql
 
-CREATE TABLE books (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
-);
-
-INSERT INTO books (name, price) VALUES
-('Database Systems', 45.00),
-('Brighton Rock', 20.25),
-('Brave New World', 18.50),
-('Atlas of the World', 22.00);
-Step 4: Configure Database Connection
-Update database credentials in index.js:
-
-Copy
-const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'your_username',
-    password: 'your_password',
-    database: 'berties_books'
-});
-Step 5: Run the Application
-Copy
+4. Start the server
 node index.js
-The application will be available at: http://localhost:8000
+Application runs at:http://localhost:8000
 
-### Available Routes
-Route	Method	Description
-/	GET	Homepage
-/about	GET	About page
-/books/list	GET	List all books
-/books/addbook	GET	Add book form
-/books/bookadded	POST	Process new book
-/books/search	GET	Search form
-/books/search-result	GET	Search results (advanced)
-/books/bargainbooks	GET	Books under £20
-✨ Key Features
-1. Browse Books
-View all books in the database with their names and prices in a formatted table.
+ Database Setup
 
-2. Add New Books
-Simple form to add new books to the database with validation.
+✔ Tables included:
+	•	users
+	•	books
+	•	audit_log
 
-3. Advanced Search
-Basic Search: Exact match for book titles
-Advanced Search: Partial matching using SQL LIKE operator
-Example: Searching "World" returns "Brave New World" and "Atlas of the World"
-4. Bargain Books
-Automatically filters and displays books priced under £20.
+✔ Password hashing
 
-5. Responsive Design
-Clean, simple interface with easy navigation between pages.
+All passwords are stored using bcrypt with saltRounds = 10.
 
-###Deployment
-Deploy with Forever (on VM)
-Install Forever globally:
-Copy
-npm install -g forever
-Start the application:
-Copy
-forever start index.js
-Check running processes:
-Copy
-forever list
-Stop the application:
-Copy
-forever stop index.js
-📊 Database Schema
-Books Table
-Column	Type	Constraints
-id	INT	PRIMARY KEY, AUTO_INCREMENT
-name	VARCHAR(255)	NOT NULL
-price	DECIMAL(10,2)	NOT NULL
-🧪 Testing
-Test Scenarios
-Homepage: Navigate to http://localhost:8000/
-View Books: Click "View all books" or go to /books/list
-Add Book: Fill form at /books/addbook and submit
-Search Books:
-Search "Brighton Rock" (exact match)
-Search "World" (partial match - should return multiple results)
-Bargain Books: Visit /books/bargainbooks (shows books < £20)
+⸻
+
+🔐 User Authentication System
+
+✔ Registration
+	•	Saves username, first name, last name, email, hashed password
+	•	Rejects missing fields
+	•	Shows confirmation message
+
+✔ Login
+	•	Selects hashed password from DB
+	•	Compares using:bcrypt.compare(password, hashedPassword)
+    •	On success: friendly welcome
+	•	On failure: warning message
+
+
+    📊 Audit Logging
+
+Every login attempt is logged:
+Column
+Description
+username
+typed username
+status
+success / fail
+timestamp
+auto-filled
+
+Security With dotenv
+
+Why?
+
+Database credentials must not be visible in GitHub.
+
+How it works:
+	1.	Installed dependency:npm install dotenv
+    2.	Added to index.js:require('dotenv').config();
+    3.	Moved credentials to .env
+	4.	.env added to .gitignore
+
+
+
+     Testing Checklist
+
+🔹 Books
+	•	Add a book
+	•	View book list
+	•	Search:
+	•	exact
+	•	partial
+	•	Bargain books (< £20)
+
+🔹 Users
+	•	Register new user
+	•	Login with correct password
+	•	Fail login intentionally
+
+🔹 Audit
+	•	Confirm login attempts appear in /users/audit
+
+🔹 Default User
+	•	Login using gold / smiths

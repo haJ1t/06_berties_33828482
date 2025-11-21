@@ -1,24 +1,138 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-  <head>
-    <!-- Page title with dynamic shop name from shopData object -->
-    <title>Register for <%=shopData.shopName%></title>
-    <!-- Link to external CSS stylesheet -->
-    <link rel="stylesheet"  type="text/css" href="/main.css" />
-  </head>
-  <body>
-    <!-- Main heading displaying shop name dynamically -->
-    <h1>Register for <%=shopData.shopName%></h1>
-    <!-- Registration form that posts data to /registered route -->
+<head>
+    <title>Register - <%= shopData.shopName %></title>
+
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: linear-gradient(135deg, #6dd5fa, #2980b9);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: #fff;
+            width: 430px;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            font-size: 15px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+            color: #34495e;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            transition: 0.2s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52,152,219,0.5);
+            outline: none;
+        }
+
+        .submit-btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 14px;
+            background: #3498db;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .back-home {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 15px;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .back-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>Register for <%= shopData.shopName %></h1>
+
     <form method="POST" action="registered">
-        <!-- Input field for user's first name -->
-        <p>First name: <input id="first" type="text" name="first" /></p>
-        <!-- Input field for user's last name -->
-        <p>Last name: <input id="last" type="text" name="last" /></p>
-        <!-- Input field for user's email with email validation -->
-        <p>Email: <input id="email" type="email" name="email" /></p>
-        <!-- Submit button to send form data -->
-        <input type="submit" value="Register" />
-      </form>
-  </body>
+
+        <div class="input-group">
+            <label for="first">First Name</label>
+            <input id="first" type="text" name="first" required>
+        </div>
+
+        <div class="input-group">
+            <label for="last">Last Name</label>
+            <input id="last" type="text" name="last" required>
+        </div>
+
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" required>
+        </div>
+
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" required>
+        </div>
+
+        <button class="submit-btn" type="submit">Create Account</button>
+    </form>
+
+    <a href="/" class="back-home">← Return to Home</a>
+</div>
+
+</body>
 </html>
