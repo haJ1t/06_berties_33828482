@@ -1,13 +1,27 @@
-# Create database script for Berties books
-
-# Create the database
-CREATE DATABASE IF NOT EXISTS berties_books;
+DROP DATABASE IF EXISTS berties_books;
+CREATE DATABASE berties_books;
 USE berties_books;
 
-# Create the tables
-CREATE TABLE IF NOT EXISTS books (
-    id     INT AUTO_INCREMENT,
-    name   VARCHAR(50),
-    price  DECIMAL(5, 2),
-    PRIMARY KEY(id));
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
+);
 
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    hashedPassword VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE audit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    status VARCHAR(10),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
