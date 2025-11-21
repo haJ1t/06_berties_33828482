@@ -13,10 +13,6 @@ const db = require('../db');
 // Create a router to handle routes separately
 const router = express.Router();
 
-
-console.log("DEBUG → username:", req.body.username);
-console.log("DEBUG → password:", req.body.password);
-
 // ⭐ DEBUG → ROUTES
 console.log("⭐ USERS ROUTES LOADED");
 
