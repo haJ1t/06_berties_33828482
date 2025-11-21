@@ -1,67 +1,46 @@
--- --------------------------------------------------
--- INSERT TEST DATA FOR BERTIE'S BOOKS APPLICATION
--- --------------------------------------------------
-
 USE berties_books;
 
--- Clean existing data (only for testing)
-DELETE FROM audit_log;
-DELETE FROM users;
-DELETE FROM books;
+-- === CREATE TABLES SAFETY ===
+DROP TABLE IF EXISTS audit_log;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS books;
 
--- --------------------------------------------------
--- Insert Sample Users
--- --------------------------------------------------
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    price DECIMAL(5,2)
+);
 
--- ADMIN TEST USER (Task 7 requirement)
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    hashedPassword VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE audit_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50),
+    status VARCHAR(10),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- === BOOKS TEST DATA ===
+INSERT INTO books (name, price) VALUES
+('Database Systems', 45.00),
+('Brighton Rock', 20.25),
+('Brave New World', 18.50),
+('Atlas of the World', 22.00);
+
+-- === DEFAULT GOLD USER ===
 INSERT INTO users (username, first_name, last_name, email, hashedPassword)
-VALUES 
-('gold', 'Gold', 'User', 'gold@example.com',
-'$2b$10$2Uki5qBg3MQS1dCQGe96MeY0nGZrN1iJPoGmEdwXt0SuMfLj/N7Ne');
--- Password = smiths
-
--- Additional example users (optional)
-INSERT INTO users (username, first_name, last_name, email, hashedPassword)
-VALUES
-('alice', 'Alice', 'Wonder', 'alice@example.com',
-'$2b$10$sF9v4nWb8HPylrYuqmLmGOxTtHbjWjPmZcYsquDrsdCy7hlbBz2bW'); 
--- Password = test123
-
-INSERT INTO users (username, first_name, last_name, email, hashedPassword)
-VALUES
-('bob', 'Bob', 'Builder', 'bob@example.com',
-'$2b$10$mqqi3w7N5I9nZzGzLCLG0ewuHn1RnzWCYpzX9p15vLSkGdu9StD0G');
--- Password = builder
-
-
--- --------------------------------------------------
--- Insert Sample Books
--- --------------------------------------------------
-
-INSERT INTO books (title, author, category, price)
-VALUES 
-('The Great Gatsby', 'F. Scott Fitzgerald', 'Classic', 10.99),
-('To Kill a Mockingbird', 'Harper Lee', 'Classic', 8.99),
-('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 12.50),
-('1984', 'George Orwell', 'Dystopian', 9.99),
-('The Catcher in the Rye', 'J.D. Salinger', 'Classic', 7.50),
-('Harry Potter and the Sorcerer''s Stone', 'J.K. Rowling', 'Fantasy', 11.99),
-('A Game of Thrones', 'George R.R. Martin', 'Fantasy', 14.50),
-('The Alchemist', 'Paulo Coelho', 'Philosophy', 10.50);
-
-
--- --------------------------------------------------
--- Insert Sample Audit Log Data
--- --------------------------------------------------
-
-INSERT INTO audit_log (username, status)
-VALUES
-('gold', 'success'),
-('alice', 'fail'),
-('bob', 'success'),
-('gold', 'fail'),
-('alice', 'success');
-
--- --------------------------------------------------
--- END OF TEST DATA
--- --------------------------------------------------
+VALUES (
+    'gold',
+    'Default',
+    'User',
+    'gold@example.com',
+    '$2b$10$Ju1pBqVQqKqS1Ts6ZFOD9u7vAzl18fJl0qECIZT0z0Dg54I5s2Msy'
+);
