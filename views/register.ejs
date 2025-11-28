@@ -35,6 +35,15 @@
             font-size: 28px;
         }
 
+        .error-box {
+            background: #ffebee;
+            border-left: 5px solid #e74c3c;
+            padding: 10px 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            color: #c0392b;
+        }
+
         .input-group {
             margin-bottom: 18px;
             text-align: left;
@@ -101,26 +110,37 @@
 <div class="card">
     <h1>Register for <%= shopData.shopName %></h1>
 
+    <!-- 🔥 HATA MESAJLARI GÖSTERME -->
+    <% if (errors && errors.length > 0) { %>
+        <div class="error-box">
+            <ul>
+                <% errors.forEach(err => { %>
+                    <li><%= err.msg %></li>
+                <% }) %>
+            </ul>
+        </div>
+    <% } %>
+
     <form method="POST" action="registered">
 
         <div class="input-group">
             <label for="first">First Name</label>
-            <input id="first" type="text" name="first" required>
+            <input id="first" type="text" name="first" value="<%= typeof first !== 'undefined' ? first : '' %>" required>
         </div>
 
         <div class="input-group">
             <label for="last">Last Name</label>
-            <input id="last" type="text" name="last" required>
+            <input id="last" type="text" name="last" value="<%= typeof last !== 'undefined' ? last : '' %>" required>
         </div>
 
         <div class="input-group">
             <label for="email">Email</label>
-            <input id="email" type="email" name="email" required>
+            <input id="email" type="email" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>" required>
         </div>
 
         <div class="input-group">
             <label for="username">Username</label>
-            <input id="username" type="text" name="username" required>
+            <input id="username" type="text" name="username" value="<%= typeof username !== 'undefined' ? username : '' %>" required>
         </div>
 
         <div class="input-group">
