@@ -201,3 +201,147 @@ How it works:
 
 🔹 Default User
 	•	Login using gold / smiths
+
+🔐 Access Control & Protected Routes (Task 5)
+
+As part of Lab 8 – Authorisation, I added access control using the redirectLogin middleware.
+This middleware checks if a user session exists and redirects unauthenticated users to the login page.
+
+//const redirectLogin = (req, res, next) => {
+    if (!req.session.userId) {
+        return res.redirect('/users/login');
+    }
+    next();
+};//
+
+
+Below is a summary of which routes are restricted and which remain publicly accessible.
+
+⸻
+
+✔ Protected Routes (Login Required)
+
+🧑‍💼 Users
+	•	/users/list
+	•	/users/audit
+	•	/logout
+
+These routes contain sensitive information such as user details or audit logs, so they are only accessible to authenticated users.
+
+⸻
+
+📚 Books
+	•	/books/list
+	•	/books/addbook
+	•	/books/bookadded
+
+These pages allow management of the book database and therefore require the user to be logged in.
+
+⸻
+
+🌐 Public Routes (No Login Required)
+
+🏠 Main
+	•	/ (Home)
+	•	/about
+
+👤 Users
+	•	/users/register
+	•	/users/registered
+	•	/users/login
+	•	/users/loggedin
+
+📚 Books
+	•	/books/search
+	•	/books/search-result
+	•	/books/bargainbooks
+
+These pages do not expose sensitive information and can safely be accessed without signing in.
+
+⸻
+
+🔍 Testing Notes
+
+I tested the application both logged in and logged out:
+
+When not logged in
+	•	Attempting to visit any protected route correctly redirects to /users/login.
+	•	Public pages load normally.
+
+When logged in
+	•	All protected pages are accessible.
+	•	Session remains active until the user logs out.
+	•	After logout, access to protected routes is removed again.
+
+XSS Demonstration 
+
+To demonstrate Cross-Site Scripting (XSS), I entered the following value into the First Name field on the registration page:
+Henry <script>alert("Gotcha!")</script>
+
+When I submitted the form, the following popup appeared in my browser:
+
+Gotcha!
+
+⚠ Why did this happen?
+
+The vulnerability occurs because:
+	1.	User input is not sanitised or escaped.
+The <script> tag entered by the user is stored and processed without any filtering.
+	2.	The unsanitised value is printed directly into the HTML response, for example:
+	let resultMessage = 'Hello ' + req.body.first + ' you are registered!';
+	3.	When the browser receives this HTML, it interprets the <script> tag as actual JavaScript:
+	Hello Henry <script>alert("Gotcha!")</script>
+	4.	The browser executes the script, causing the popup.
+This proves the application is vulnerable to XSS attacks.
+
+This vulnerability will later be fixed using proper sanitisation (e.g., express-validator, escape(), or DOM encoding).
+
+!!!!VALIDATION!!!!
+
+✔ Server-Side Validation 
+
+I added validation checks using the express-validator module.
+The following fields are validated on the registration form:
+	•	Email → must be a valid email format
+	•	Username → must be between 5–20 characters
+	•	Password → minimum 8 characters to ensure stronger security
+	•	First Name → cannot be empty
+	•	Last Name → cannot be empty
+
+If any validation fails, the registration page reloads and displays error messages.
+This prevents invalid or incomplete form submissions.
+
+I chose these validations because:
+	•	Email format is frequently mistyped
+	•	Username length prevents extremely short or long values
+	•	Password length increases security
+	•	First/Last name empty submissions cause poor data quality
+
+
+!!!!SANITISATION!!!!
+
+✔ Input Sanitisation & XSS Protection 
+
+To protect against Cross-Site Scripting (XSS) attacks, I installed and enabled the express-sanitizer module:
+const expressSanitizer = require('express-sanitizer');
+app.use(expressSanitizer());
+
+I then sanitised all user inputs on the registration form:
+
+req.body.first = req.sanitize(req.body.first);
+req.body.last = req.sanitize(req.body.last);
+req.body.username = req.sanitize(req.body.username);
+req.body.email = req.sanitize(req.body.email);
+req.body.password = req.sanitize(req.body.password);
+
+This removes dangerous code such as:
+<script>alert("Gotcha!")</script>
+Before sanitisation, the above payload caused a JavaScript popup (demonstrating XSS).
+After sanitisation, the script tags are stripped and treated as harmless text.
+
+I also sanitised additional form fields in the application where user input is saved:
+	•	Registration page (all text fields)
+	•	Login page (username)
+	•	Book pages (book name, book price)
+
+Fields that do NOT accept user input (e.g., dropdowns, static values) were not sanitised because they cannot contain injected code.
