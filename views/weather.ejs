@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Search</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f4;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-left: 5px;
+            background-color: #0078ff;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background-color: #005fcc;
+        }
+
+        .card {
+            background: white;
+            width: 350px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .city {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        .temp {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .details {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #444;
+        }
+
+        .icon {
+            width: 120px;
+            height: 120px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Weather Search</h1>
+
+    <form action="/weather" method="GET">
+        <input type="text" name="city" placeholder="Enter city..." required>
+        <button type="submit">Search</button>
+    </form>
+
+    <% if(weather){ %>
+    <div class="card">
+        <div class="city"><%= weather.name %></div>
+
+        <img class="icon" src="https://openweathermap.org/img/wn/<%= weather.weather[0].icon %>@2x.png">
+
+        <div class="temp"><%= weather.main.temp %>°C</div>
+
+        <div class="details">
+            Feels like: <%= weather.main.feels_like %>°C <br>
+            Humidity: <%= weather.main.humidity %>% <br>
+            Wind: <%= weather.wind.speed %> m/s
+        </div>
+    </div>
+    <% } %>
+
+    <% if(errorMessage){ %>
+        <p style="color:red; font-size:18px;"><%= errorMessage %></p>
+    <% } %>
+
+</body>
+</html>
