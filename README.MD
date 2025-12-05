@@ -345,3 +345,58 @@ I also sanitised additional form fields in the application where user input is s
 	•	Book pages (book name, book price)
 
 Fields that do NOT accept user input (e.g., dropdowns, static values) were not sanitised because they cannot contain injected code.
+
+
+Bertie’s Books – API & Weather Features
+
+This project extends the Bertie’s Books application by adding:
+	•	A custom REST API that provides book data
+	•	Search, price filtering, and sorting features (Part C extensions)
+	•	A weather forecast page using the OpenWeatherMap API
+
+📌 Weather Feature (Lab 9A)
+
+Route:/weather
+
+Description:
+
+Displays current weather information for any city using the OpenWeatherMap API.
+
+Features:
+	•	User can enter a city name in a form
+	•	Temperature, humidity, wind speed, “feels like” value displayed
+	•	Weather icon shown visually
+	•	Friendly error handling if city is not found
+
+Example URL: http://localhost:8000/weather?city=London
+
+📌 Books API
+
+All API routes begin with:/api
+### 1. Get all books
+GET /api/books
+
+
+ 2. Search books
+ Search by name : GET /api/books?search=keyword
+ Example : /api/books?search=world
+
+
+ 3. Filter by price range
+ GET /api/books?minprice=X&maxprice=Y
+ /api/books?minprice=5&maxprice=15
+
+
+ 4. Sorting books
+
+ By name : /api/books?sort=name
+ By Price : /api/books?sort=price
+ /api/books?minprice=0&maxprice=50&sort=price
+
+
+
+ ✔️ Error Handling
+
+The API returns meaningful messages if:
+	•	A city is not found (weather endpoint)
+	•	No books match search or filters
